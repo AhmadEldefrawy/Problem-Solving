@@ -1,3 +1,3 @@
 # Problem-Solving
 
-Solutions to various algorithmic problems from leetcode.
+My solutions to various algorithmic problems from LeetCode online judge.
