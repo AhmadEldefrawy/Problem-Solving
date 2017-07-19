@@ -1,0 +1,79 @@
+package leetCode.medium;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ */
+
+public class AddTwoNumbers {
+
+    public static class ListNode {
+
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    public static void main(String[] args) {
+        ListNode l1 = new ListNode(2);
+        ListNode l1Head = l1;
+        l1.next = new ListNode(4);
+        l1 = l1.next;
+        l1.next = new ListNode(3);
+
+        ListNode l2 = new ListNode(5);
+        ListNode l2Head = l2;
+        l2.next = new ListNode(6);
+        l2 = l2.next;
+        l2.next = new ListNode(4);
+        ListNode result = addTwoNumbers(l1Head, l2Head);
+
+        return;
+    }
+
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode result;
+        int remainder = 0;
+
+        // Initializing the result LinkedList
+        int sum = l1.val + l2.val;
+        if (sum <= 9) {
+            result = new ListNode(sum);
+        } else {
+            result = new ListNode(sum % 10);
+            remainder = sum / 10;
+        }
+        ListNode resultHead = result;
+        l1 = l1.next;
+        l2 = l2.next;
+
+        while (l1 != null || l2 != null) {
+            int integer1 = (l1 == null) ? 0 : l1.val;
+            int integer2 = (l2 == null) ? 0 : l2.val;
+
+            int IntegerSum = integer1 + integer2 + remainder;
+            if (IntegerSum <= 9) {
+                result.next = new ListNode(IntegerSum);
+                result = result.next;
+                remainder = 0;
+            } else {
+                result.next = new ListNode(IntegerSum % 10);
+                result = result.next;
+                remainder = IntegerSum / 10;
+            }
+
+            l1 = (l1 == null) ? null : l1.next;
+            l2 = (l2 == null) ? null : l2.next;
+        }
+
+        // Printing any remaining remainder
+        while (remainder != 0) {
+            result.next = new ListNode(remainder % 10);
+            result = result.next;
+            remainder = remainder / 10;
+        }
+        return resultHead;
+    }
+}
