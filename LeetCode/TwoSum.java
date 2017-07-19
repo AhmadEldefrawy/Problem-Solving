@@ -4,7 +4,10 @@ import java.util.HashMap;
 
 /**
  * Created by Ahmad Eldefrawy.
+ * Time complexity : O(n)
+ * Space complexity : O(n)
  */
+
 public class TwoSum {
 
     public static void main(String[] args) {
