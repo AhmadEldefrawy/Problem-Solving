@@ -3,7 +3,7 @@ package leetCode.easy;
 import java.util.HashMap;
 
 /**
- * Created by Ahmad on 7/19/2017.
+ * Created by Ahmad Eldefrawy.
  */
 public class TwoSum {
 
