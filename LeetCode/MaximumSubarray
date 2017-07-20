@@ -1,0 +1,41 @@
+package leetCode.easy;
+
+import java.util.HashMap;
+
+/**
+ * Created by Ahmad Eldefrawy
+ * Time: O(n)
+ * Space: O(n)
+ */
+public class MaximumSubarray {
+
+    // check each number with lastSum
+    // if number > lastSum + number => new LastSum = number
+    // else new LastSum = lastSum + number
+    // check current lastSum with maxSum
+
+    public static void main(String[] args) {
+        int[] arr = {1,2};
+        System.out.print(maxSubArray(arr));
+    }
+
+    //SOLUTION
+    public static int maxSubArray(int[] nums) {
+        int maxSum = nums[0];
+        HashMap<Integer, Integer> indexToSum = new HashMap<>();
+        indexToSum.put(0, nums[0]);
+
+        for (int i = 1; i < nums.length; i++) {
+            // Getting the last Sum
+            if (nums[i] > nums[i] + indexToSum.get(i - 1)) {
+                indexToSum.put(i, nums[i]);
+            } else {
+                indexToSum.put(i, nums[i] + indexToSum.get(i - 1));
+            }
+
+            // Updating the maxSum
+            maxSum = (indexToSum.get(i) > maxSum) ? indexToSum.get(i) : maxSum;
+        }
+        return maxSum;
+    }
+}
