@@ -1,0 +1,18 @@
+    
+package leetCode.medium;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ */
+    
+  public List<Integer> inorderTraversal(TreeNode root) {
+
+    ArrayList<Integer> traversed = new ArrayList();
+
+        if (root != null) {
+            traversed.addAll(inorderTraversal(root.left));
+            traversed.add(root.val);
+            traversed.addAll(inorderTraversal(root.right));
+        }
+        return traversed;
+  }
