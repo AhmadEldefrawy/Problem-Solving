@@ -1,0 +1,47 @@
+package leetCode.medium;
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ */
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+
+    private Queue<TreeNode> q = new LinkedList<>();
+    private ArrayList<List<Integer>> result = new ArrayList<>();
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        ArrayList<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            ArrayList<Integer> line = new ArrayList<>();
+            int size = q.size();
+
+            while (size > 0) {
+                TreeNode current = q.remove();
+                if (current != null) {
+                    line.add(current.val);
+                    q.add(current.left);
+                    q.add(current.right);
+                }
+                size--;
+            }
+
+            if (!line.isEmpty())
+                result.add(line);
+        }
+        return result;
+    }
+}
