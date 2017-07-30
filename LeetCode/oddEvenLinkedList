@@ -1,0 +1,37 @@
+package leetCode.medium;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time: O(n)
+ * Space: O(n)
+ */
+ 
+ 
+ public ListNode oddEvenList(ListNode head) {
+        int pointer = 1;
+        ListNode tempHead = head;
+        Queue<Integer> pqOdd = new LinkedList<>();
+        Queue<Integer> pqEven = new LinkedList<>();
+
+        while (tempHead != null) {
+            if (pointer % 2 == 1) {
+                pqOdd.add(head.val);
+            } else {
+                pqEven.add(head.val);
+            }
+            pointer++;
+            tempHead = tempHead.next;
+        }
+
+        tempHead = head;
+
+        while (tempHead != null) {
+            if (!pqOdd.isEmpty()) {
+                tempHead.val = pqOdd.remove();
+            } else {
+                tempHead.val = pqEven.remove();
+            }
+            tempHead = tempHead.next;
+        }
+        return head;
+    }
