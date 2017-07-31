@@ -1,0 +1,45 @@
+package leetCode.medium;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ */
+
+public class RotateImage {
+
+    public static void main(String[] args) {
+//        int[][] table = {{1,2,3,4,5},{6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
+        int[][] table = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
+
+        rotate(table);
+    }
+
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+
+        for (int level = 0; level < n / 2; level++) {
+            int first = level;
+            int last = n - level - 1;
+
+            for (int i = level; i < n - level - 1; i++) {
+                int offset = i - first;
+
+                // Save top
+                int top = matrix[first][i];
+
+                //left -> top
+                matrix[first][i] = matrix[last - offset][first];
+
+                //bottom -> Left
+                matrix[last - offset][first] = matrix[last][last - offset];
+
+                //Right -> Bottom
+                matrix[last][last - offset] = matrix[i][last];
+
+                //Top -> Right
+                matrix[i][last] = top
+
+            }
+        }
+    }
+
+}
