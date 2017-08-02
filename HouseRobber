@@ -1,0 +1,32 @@
+package leetCode.easy;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time: O(n)
+ * Space: O(1)
+ */
+
+public class HouseRobber {
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5, 6};
+        System.out.println(rob(arr));
+    }
+
+    // Each CurrentMemoValue equals =
+    // max ([houses - 2] + currentHouse {EcludingLastHouse}, [houses-1] {LastHouseExcludingCurrent})
+    public static int rob(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+
+        int[] memo = new int[nums.length + 1];
+        memo[0] = 0;
+        memo[1] = nums[0];
+
+        for (int i = 2; i <= nums.length; i++) {
+            memo[i] = Math.max(memo[i - 1], memo[i - 2] + nums[i - 1]);
+        }
+        return memo[nums.length];
+    }
+}
