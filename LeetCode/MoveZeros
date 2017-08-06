@@ -1,0 +1,40 @@
+package leetCode.easy;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time O(n)
+ * Space O(1)
+ */
+
+public class MoveZeros {
+
+    private static int[] arr = {0};
+
+    public static void main(String[] args) {
+        moveZeroes(arr);
+        System.out.println(Arrays.toString(arr));
+    }
+
+    
+    // Count non zero elements and insert values in the count position
+    // Fill all remaining places with zeros
+    public static void moveZeroes(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return;
+        }
+
+        int insertPos = 0;
+        for (int num : nums) {
+            if (num != 0) {
+                nums[insertPos++] = num;
+            }
+        }
+
+        while (insertPos < nums.length) {
+            nums[insertPos++] = 0;
+        }
+    }
+
+}
