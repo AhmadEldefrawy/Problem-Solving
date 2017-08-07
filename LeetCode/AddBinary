@@ -1,0 +1,31 @@
+package leetCode.easy;
+
+/**
+ * Created by Ahmad Eldefrawy
+ */
+
+public class AddBinary {
+
+    public static void main(String[] args) {
+        System.out.println(addBinary("10", "11"));
+
+    }
+
+    public static String addBinary(String a, String b) {
+        StringBuilder result = new StringBuilder("");
+        int alength = a.length() - 1;
+        int blength = b.length() - 1;
+        int remainder = 0;
+        int i = 0;
+
+        while (i <= alength || i <= blength || remainder != 0) {
+            int x = (i <= alength) ? ((a.charAt(alength - i) == '1') ? 1 : 0) : 0;
+            int y = (i <= blength) ? ((b.charAt(blength - i) == '1') ? 1 : 0) : 0;
+            int sum = x + y + remainder;
+            result.insert(0, sum % 2);
+            remainder = sum / 2;
+            i++;
+        }
+        return String.valueOf(result);
+    }
+}
