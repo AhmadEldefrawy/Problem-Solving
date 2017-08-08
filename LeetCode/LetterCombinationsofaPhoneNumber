@@ -1,0 +1,42 @@
+package leetCode.medium;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time n^n where n is number of digits.
+ */
+
+public class LetterCombinationsofaPhoneNumber {
+
+    public static void main(String[] args) {
+        List<String> x = letterCombinations("4234234223");
+
+        System.out.println(x);
+    }
+
+    // BFS Solution
+    public static List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<String>();
+        String[] keyMap = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+
+        for (int i = 0; i < digits.length(); i++) { // iterate on all the digits
+            if (result.size() == 0)
+                result.add(""); // initialize for permuation
+            int current = Character.getNumericValue(digits.charAt(i));
+            String letters = keyMap[current];
+            List<String> temp = new ArrayList<>();
+
+            for (int j = 0; j < result.size(); j++) {  // permute result with all new letters
+                for (int x = 0; x < letters.length(); x++) {
+                    temp.add(result.get(j) + String.valueOf(letters.charAt(x)));
+                }
+            }
+            result = temp;
+        }
+        return result;
+    }
+}
+
+
