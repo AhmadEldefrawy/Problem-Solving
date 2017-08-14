@@ -1,0 +1,53 @@
+package leetCode.hard;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time: O(m*n)
+ * Space: O(m*n)
+ */
+public class RegularExpressionMatching {
+
+    public static void main(String[] args) {
+        System.out.println(isMatch("aaa", "ab*a*a"));
+    }
+
+    public static boolean isMatch(String text, String pattern) {
+
+        // IMPORTANT NOTICE: dp[0][i] = pattern.charAt(i-1) as dp have length + 1
+        boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
+
+        dp[0][0] = true;
+        //Deals with patterns like a* or a*b* or a*b*c*
+        for (int i = 1; i < dp[0].length; i++) {
+            if (pattern.charAt(i - 1) == '*' && dp[0][i - 2]) {
+                dp[0][i] = true;
+            }
+        }
+
+        for (int currChar = 1; currChar < dp.length; currChar++) {
+            for (int currPttrn = 1; currPttrn < dp[0].length; currPttrn++) {
+
+                // If text == pattern OR pattern = '.'
+                if (text.charAt(currChar - 1) == pattern.charAt(currPttrn - 1)
+                    || pattern.charAt(currPttrn - 1) == '.') {
+                    dp[currChar][currPttrn] = dp[currChar - 1][currPttrn - 1];
+
+                } else if (pattern.charAt(currPttrn - 1) == '*') {
+                    dp[currChar][currPttrn] = dp[currChar][currPttrn - 2];  //0 occurrences
+
+                    // if the one before me is equal (currentChar || '.')
+                    // 'a'* == 'a'* OR 'a'* == '.'*
+                    if (pattern.charAt(currPttrn - 2) == text.charAt(currChar - 1) || pattern
+                        .charAt(currPttrn - 2) == '.') {
+                        dp[currChar][currPttrn] =
+                            dp[currChar - 1][currPttrn] || dp[currChar][currPttrn];
+                    }
+                } else {
+                    dp[currChar][currPttrn] = false;
+                }
+            }
+        }
+
+        return dp[text.length()][pattern.length()];
+    }
+}
