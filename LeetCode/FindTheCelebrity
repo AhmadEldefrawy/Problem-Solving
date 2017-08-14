@@ -1,0 +1,38 @@
+package leetCode.medium;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time: O(n)
+ * Space: O(1)
+ */
+
+public class FindTheCelebrity {
+    public static int[][] matrix = {{0, 1, 1, 1}, {1, 0, 1, 1}, {0, 0, 0, 0}, {1, 1, 1, 0}};
+
+    public static void main(String[] args) {
+        System.out.println(findCelebrity(4));
+    }
+
+    private static boolean knows(int a, int b) {
+        return (matrix[a][b] == 1) ? true : false;
+    }
+
+    public static int findCelebrity(int n) {
+        int candidate = 0;
+
+        for (int i = 1; i < n; i++) {
+            if (knows(candidate, i)) {
+                candidate = i;
+            }
+        }
+
+        // make sure that all knows the celebrity
+        // If anyone doesn't know the candidate (except for himself) return -1
+        for (int i = 0; i < n; i++) {
+            if (i != candidate && !knows(i, candidate)) {
+                return -1;
+            }
+        }
+        return candidate;
+    }
+}
