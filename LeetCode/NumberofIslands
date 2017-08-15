@@ -1,0 +1,53 @@
+package leetCode.medium;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time: O(m*n)
+ * Space: O(1)
+ */
+
+public class NumberofIslands {
+    public static void main(String[] args) {
+        char[][] grid = {{'1', '1', '0', '0', '0'}, {'1', '1', '0', '0', '0'},
+            {'0', '0', '1', '0', '0'}, {'0', '0', '0', '1', '1'}};
+//        char[][] grid = {{'1', '1'}, {'1', '1'}};
+        System.out.println(numIslands(grid));
+        return;
+    }
+
+
+    // Solution One: Inplace History. Mark each visited 1 as 0 so you don't visit it again.
+    // Solution two: Have a memoization array of booleans
+
+    public static int numIslands(char[][] grid) {
+        int count = 0;
+        if (grid.length == 0) {
+            return 0;
+        }
+
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (grid[row][col] == '1') {
+                    markIsland(grid, row, col);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void markIsland(char[][] grid, int row, int col) {
+        // If outOfBoundary or equals Zero
+        if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length
+            || grid[row][col] == '0' ) {
+            return;
+        }
+
+        grid[row][col] = '0';   // Mark for memoization
+        markIsland(grid, row, col + 1);
+        markIsland(grid, row, col - 1);
+        markIsland(grid, row + 1, col);
+        markIsland(grid, row - 1, col);
+        return;
+    }
+}
