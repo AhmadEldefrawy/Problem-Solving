@@ -1,0 +1,38 @@
+package leetCode.Hard;
+
+/**
+ * Created by Ahmad Eldefrawy
+ */
+
+public class Solution extends Reader4 {
+    /**
+     * @param buf Destination buffer
+     * @param n   Maximum number of characters to read
+     * @return    The number of characters read
+     */
+    // read4() and put it in queue
+    // Use queue until it's empty then fill it again.
+    // If queue after read4() is empty it means it's end of file
+
+    private static Queue<Character> que = new LinkedList<>();
+
+    public int read(char[] buf, int n) {
+    	int i = 0;
+
+    	while (i < n) {
+    		if (q.isEmpty()){
+    			char[] current = new char[4]
+    			read4(current);
+    			for (char c : current)
+    				que.add(c)
+    			if (que.isEmpty())
+    				break;
+    		}
+    		
+    		buf[i] = q.pop();
+			i++;
+		}
+		
+		return i;
+	}    
+}
