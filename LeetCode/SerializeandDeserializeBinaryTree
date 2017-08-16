@@ -1,0 +1,104 @@
+package leetCode.hard;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time: O(n)
+ * Space: O(n)
+ * where n is number of nodes
+ */
+
+public class SerializeandDeserializeBinaryTree {
+
+    public static class TreeNode {
+
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        TreeNode two = new TreeNode(2);
+        TreeNode three = new TreeNode(3);
+        TreeNode four = new TreeNode(4);
+        TreeNode five = new TreeNode(5);
+        TreeNode six = new TreeNode(6);
+        TreeNode seven = new TreeNode(7);
+        root.left = two;
+        root.right = three;
+        two.left = four;
+        two.right = five;
+        three.left = six;
+        three.right = seven;
+
+        String data = serialize(root);
+        System.out.println(data);
+
+        TreeNode NewRoot = deserialize(data);
+        return;
+    }
+
+
+    // Breadth first traversal using  LinkedList instead of Queues as Queues don't accept entry
+    // of NULL values
+    public static String serialize(TreeNode root) {
+        if (root == null) {
+            return "";
+        }
+
+        LinkedList<TreeNode> nodeList = new LinkedList<>();
+        nodeList.add(root);
+        StringBuilder stringBuild = new StringBuilder();
+
+        while (!nodeList.isEmpty()) {
+            TreeNode current = nodeList.removeLast();
+            if (current != null) {
+                stringBuild.append(" " + current.val);
+                nodeList.addFirst(current.left);
+                nodeList.addFirst(current.right);
+            } else {
+                stringBuild.append(" N");
+            }
+        }
+        String result = stringBuild.toString();
+        return result.trim();
+    }
+
+
+    // Decodes your encoded data to tree.
+    public static TreeNode deserialize(String data) {
+        String[] arr = data.split(" ");
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        if (arr[0].equals("")) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(Integer.valueOf(arr[0]));
+        queue.add(root);
+
+        int i = 1;
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.remove();
+            String left = arr[i++];
+            String right = arr[i++];
+
+            if (!left.equals("N")) {
+                current.left = new TreeNode(Integer.valueOf(left));
+                queue.add(current.left);
+            }
+            if (!right.equals("N")) {
+                current.right = new TreeNode(Integer.valueOf(right));
+                queue.add(current.right);
+            }
+
+        }
+        return root;
+    }
+}
