@@ -1,0 +1,60 @@
+package leetcode.medium;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy
+ */
+
+public class MergeIntervals {
+
+    public static void main(String[] args) {
+
+    }
+
+    public List<Interval> merge(List<Interval> intervals) {
+        if (intervals.size() == 0 || intervals.size() == 1) {
+            return intervals;
+        }
+
+//        Collections.sort(intervals, new IntervalSorter());
+        intervals.sort((interv1, interv2) -> Integer.compare(interv1.start, interv2.start)); // new Java8 Lam
+        int i = 0;
+        while (i < intervals.size() - 1) {
+            Interval current = intervals.get(i);
+            Interval next = intervals.get(i + 1);
+
+            if (next.start >= current.start && next.start <= current.end) {
+                current.end = (next.end > current.end)? next.end : current.end;
+                intervals.remove(i + 1);
+                continue;
+            }
+            i++;
+        }
+        return intervals;
+    }
+
+//    private class IntervalSorter implements Comparator<Interval> {
+//        public int compare(Interval one, Interval two) {
+//            // order ascending, negative means new number not smaller
+//            return one.start - two.start;
+//        }
+//    }
+
+    public class Interval {
+        int start;
+        int end;
+
+        Interval() {
+            start = 0;
+            end = 0;
+        }
+
+        Interval(int s, int e) {
+            start = s;
+            end = e;
+        }
+    }
+
+
+}
