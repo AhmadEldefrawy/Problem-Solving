@@ -1,0 +1,39 @@
+package leetcode.medium;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * O(n2)
+ */
+
+public class WordBreak {
+
+    public static void main(String[] args) {
+        List<String> wordDict = new ArrayList<>();
+        wordDict.add("le");
+        wordDict.add("leet");
+        wordDict.add("code");
+        wordDict.add("cs");
+        WordBreak x = new WordBreak();
+        System.out.println(x.wordBreak("leetcodecs", wordDict));
+    }
+
+    public boolean wordBreak(String s, List<String> dict) {
+
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+
+        for (int end = 1; end <= s.length(); end++) {
+            for (int start = 0; start < end; start++) {
+                if (dp[start] && dict.contains(s.substring(start, end))) {
+                    dp[end] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+
+
+}
