@@ -1,0 +1,36 @@
+package leetcode.medium;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ */
+ 
+public class FlattenNestedListIterator {
+
+    private Queue<Integer> queue = new LinkedList();
+
+    public NestedIterator(List<NestedInteger> nestedList) {
+        helper(nestedList);
+    }
+    public helper(List<NestedInteger> nestedList) {
+        for (int i = 0; i < nestedList.size(); i++) {
+            if (nestedList.get(i).isInteger()){
+                queue.add(nestedList.get(i).getInteger());
+            } else {
+                helper(nestedList.get(i).getList());
+            }
+        }
+        return;
+    }
+
+    @Override
+    public Integer next() {
+        return queue.poll();
+    }
+
+    @Override
+    public boolean hasNext() {
+        return queue.isEmpty();
+    }
+}
