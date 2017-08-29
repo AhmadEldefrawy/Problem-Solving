@@ -1,0 +1,34 @@
+package leetCode.easy;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ */
+public class ValidPalindrome {
+
+    public static void main(String[] args) {
+        System.out.println(isPalindrome(",bb"));
+    }
+
+    public static boolean isPalindrome(String s) {
+        int start = 0, end = s.length() - 1;
+
+        while (start < end) {
+            char startChar = s.charAt(start);
+            char endChar = s.charAt(end);
+
+            // Check for valid characters in place
+            if (!Character.isLetterOrDigit(startChar)) {
+                start++;
+            } else if (!Character.isLetterOrDigit(endChar)) {
+                end--;
+            } else{
+                if (Character.toLowerCase(startChar) != Character.toLowerCase(endChar))
+                    return false;
+                // When they are equal
+                start++;
+                end--;
+            }
+        }
+        return true;
+    }
+}
