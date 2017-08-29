@@ -1,0 +1,52 @@
+package leetCode.medium;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time (1) for next()
+ * Space O(h) h -> levels
+ */
+
+public class BinarySearchTreeIterator {
+    // Store Only the head of each Level (left Most node)
+    // Traverse in inOrder Pattern (node -> Parent -> Parent.right)
+    // Recursively traverse for pattern.right to get the left most node.
+    // in the end return stack top
+
+    private Stack<TreeNode> treeStack = new Stack<>();
+
+    public BSTIterator(TreeNode root) {
+        if (root == null)
+            return;
+        fillStack(root);
+    }
+
+    public Integer next() {
+        TreeNode currNode = treeStack.peek();
+        fillStack(currNode.right);
+        return currNode.val;
+    }
+
+    private void fillStack(TreeNode root) {
+        TreeNode currNode = root;
+        while (currNode != null) {
+            treeStack.add(currNode);
+            currNode = currNode.left;
+        }
+    }
+
+    public boolean hasNext() {
+        return !treeStack.isEmpty();
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+}
