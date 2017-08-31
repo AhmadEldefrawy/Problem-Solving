@@ -1,0 +1,33 @@
+package leetCode.medium;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ */
+
+public class Subsets {
+
+    public static void main(String[] args) {
+        int[] x = {1,2,3,4};
+        subsets(x);
+    }
+
+    public static List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+        // iterate over the numbers and add it within iteration to the current lists
+        // [] -> [],[1] -> [],[1],[2],[1,2]
+        for (int currNum : nums) {
+            int lenght = result.size(); // current size so not end up adding infinitely.
+            for (int i = 0; i < lenght; i++) {
+                List<Integer> currList = new ArrayList(result.get(i));
+                currList.add(currNum);
+                result.add(currList);
+            }
+        }
+        return result;
+    }
+
+
+}
