@@ -1,0 +1,51 @@
+package leetCode.medium;
+
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time : O(n*k) k is string length
+ * Space: (n)
+ */
+
+public class GroupAnagrams {
+
+    public static void main(String[] args) {
+        String[] s = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        groupAnagrams(s);
+    }
+
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> anagrams = new HashMap<>();
+
+        for (String curString : strs) {
+            int[] freqArray = new int[26];
+
+            // Populating counts of each character
+            for (int i = 0; i < curString.length() ; i++) {
+                char c = curString.charAt(i);
+                freqArray[c - 'a']++;
+            }
+
+            // turning it into string
+            StringBuilder freqStringB = new StringBuilder();
+            for (int i = 0; i < freqArray.length ; i++) {
+                freqStringB.append(freqArray[i]);
+            }
+
+
+            // Adding similar strings together in HashMap
+            List<String> list = new ArrayList<>();
+            if (anagrams.containsKey(freqStringB.toString())) {
+                list = anagrams.get(freqStringB.toString());
+            }
+            list.add(curString);
+            anagrams.put(freqStringB.toString(), list);
+        }
+
+        return new ArrayList(anagrams.values());
+    }
+    //Another solution to sort each word and use the sorted word as the key in the HashMap. But this
+    //will use Arrays.sort which will make the complexity n*k Log(k)
+
+}
