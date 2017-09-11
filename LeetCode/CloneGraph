@@ -1,0 +1,48 @@
+package leetcode.medium;
+
+import java.rmi.server.UnicastRemoteObject;
+import java.util.*;
+
+/**
+ * Created by Ahmad ELdefrawy.
+ */
+
+public class CloneGraph {
+
+    class UndirectedGraphNode {
+        int label;
+        List<UndirectedGraphNode> neighbors;
+
+        UndirectedGraphNode(int x) {
+            label = x;
+            neighbors = new ArrayList<UndirectedGraphNode>();
+        }
+    }
+
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null) return null;
+
+        Queue<UndirectedGraphNode> que = new LinkedList<>(); // to contain original nodes
+        HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>(); // to contain new Nodes
+
+        UndirectedGraphNode newRoot = new UndirectedGraphNode(node.label); //new node for return
+        map.put(node, newRoot); //add first node to HashMap
+        que.add(node);
+
+        while (!que.isEmpty()) {
+
+            UndirectedGraphNode oldNode = que.poll();
+
+            for (UndirectedGraphNode oldNeihgbor : oldNode.neighbors) {
+                if (!map.containsKey(oldNeihgbor)) {
+                    map.put(oldNeihgbor, new UndirectedGraphNode(oldNeihgbor.label));
+                    que.add(oldNeihgbor);
+                }
+                // add new neighbor nodes to current node
+                map.get(oldNode).neighbors.add(map.get(oldNeihgbor));
+            }
+        }
+        return newRoot;
+    }
+
+}
