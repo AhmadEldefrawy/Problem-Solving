@@ -1,0 +1,31 @@
+package leetCode.medium;
+import java.util.*;
+
+/**
+ * Created by Ahmad Eldefrawy.
+ * Time: O(n)
+ * Space O(n)
+ */
+
+public class MaximumSizeSubarraySumEqualsk {
+
+    // For each i, check if K equals current sum , OR equals (currentSum - previousSum)
+    // This by checking if map contains (currentSum - K) and update max length.
+    public int maxSubArrayLen(int[] nums, int k) {
+        int curSum = 0, max = 0;
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>(); // Sum -> Index
+
+        for (int i = 0; i < nums.length; i++) {
+            curSum = curSum + nums[i];
+            if (curSum == k)
+                max = i + 1;
+            else if (map.containsKey(curSum - k))
+                max = Math.max(max, i - map.get(curSum - k));
+
+            if (!map.containsKey(curSum))
+                map.put(curSum, i);
+        }
+        return max;
+    }
+
+}
