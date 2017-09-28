@@ -1,0 +1,27 @@
+package leetCode.easy;
+
+/**
+ * Created by Ahmad Eldefrawy
+ */
+ 
+	public class  IntersectionofTwoLinkedLists {
+		// Time: O(m+n)
+		// Space O(1)
+	  public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+	    	if(headA == null || headB == null) return null;
+	    	
+	    	ListNode a = headA;
+	    	ListNode b = headB;
+	    	
+	    	while (a != b) { 
+	    		//for the end of first iteration, we just reset the pointer to the head of another linkedlist
+  				//the two iterations will both run for listA.length + listB.length 
+  				//and will reach the intersection point at the same time after switching the pointer.
+  				// The idea is that lenA+LenB = LenB+lenA, so they both iterate through the total lenght they 
+  				// will reach the end together and hence reaching the intersection together
+	    	    a = (a == null)? headB : a.next;
+	    	    b = (b == null)? headA : b.next;    
+	    	}
+	    	return a;
+	    }
+	}
